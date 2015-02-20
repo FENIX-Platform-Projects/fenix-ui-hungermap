@@ -3,7 +3,7 @@ requirejs.config({
     baseUrl: '',
 
     paths: {
-        'bootstrap': 'http://netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min',
+        'bootstrap': 'node_modules/bootstrap/dist/js/bootstrap.min',
         'jquery': 'node_modules/jquery/dist/jquery.min',
         'text': 'node_modules/text/text',
         'domReady':  'node_modules/domReady/domReady',

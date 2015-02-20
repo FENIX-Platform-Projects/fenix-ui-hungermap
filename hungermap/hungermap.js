@@ -1,6 +1,7 @@
 define([
     'jquery',
     'text!hungermap/index.html',
+    'bootstrap',
     //'fenix-map',
     'fenix-ui-map'
 ], function ($, template) {
@@ -32,10 +33,18 @@ define([
             //add labels
             add_labels(CONFIG.lang)
 
-            $(".hm-timeline-year").click({l: l, m: fenixMap}, function(event) {
-                CONFIG.year = $(this).data('year')
-                $('.hm-timeline-selected').removeClass('hm-timeline-selected');
-                $(this).addClass('hm-timeline-selected');
+            $(".fx-ul li").on('click', {l: l, m: fenixMap}, function(event) {
+
+                var $li =  $(event.currentTarget)
+
+                $(".fx-ul li").removeClass('active')
+                $li.addClass('active')
+                console.log($li.find('a').attr('data-year'))
+                CONFIG.year = $li.find('a').attr('data-year')
+//                console.log(CONFIG.year)
+//
+//                $('.hm-timeline-selected').removeClass('hm-timeline-selected');
+//                $(this).addClass('hm-timeline-selected');
                 event.data.m.map.closePopup()
                 switch_layer(event.data.l, CONFIG.year)
             });
