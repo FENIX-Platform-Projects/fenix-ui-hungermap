@@ -110,7 +110,7 @@ define([
                     enablegfi: false
                 },
                 gui: {
-                    disclaimerfao: true,
+                    disclaimerfao: false,
                     fullscreen: false
                 },
                 usedefaultbaselayers : false
