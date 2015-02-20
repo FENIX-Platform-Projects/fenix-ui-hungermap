@@ -117,7 +117,7 @@ define([
             }
 
             var fenixMap = new FM.Map(id, options, {  minZoom: 1,  zoom: 1, zoomControl: false, attributionControl: false });
-            fenixMap.createMap(25, 0, 2);
+            fenixMap.createMap(35, 0, 2);
 
             //http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/5/18/19
 
