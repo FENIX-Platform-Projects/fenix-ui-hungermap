@@ -18,6 +18,10 @@ requirejs.config({
 
         'fenix-map': 'fenix-map-js/fenix-map-min',
         'fenix-map-config': 'fenix-map-js/fenix-map-config',
+
+        'fenix-ui-map': 'fenix-ui-map/fenix-ui-map.min',
+        'fenix-ui-map-config': 'fenix-ui-map/fenix-ui-map-config',
+
         'FMHungerMap': 'hungermap/hungermap'
     },
 
@@ -35,6 +39,15 @@ requirejs.config({
                 'jquery.i18n.properties',
                 //'jquery.hoverIntent', 
                  //'chosen'
+            ]
+        },
+        'fenix-ui-map': {
+            deps: [
+                'jquery',
+                'leaflet',
+                'fenix-ui-map-config',
+                'jquery.power.tip',
+                'jquery.i18n.properties',
             ]
         }
     }

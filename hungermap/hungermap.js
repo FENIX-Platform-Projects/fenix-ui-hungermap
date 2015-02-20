@@ -1,7 +1,9 @@
 define([
     'jquery',
     'text!hungermap/index.html',
-    'fenix-map'], function ($, template) {
+    //'fenix-map',
+    'fenix-ui-map'
+], function ($, template) {
 
     var global = this;
     global.FMHungerMap = function() {
@@ -11,8 +13,9 @@ define([
             placeholder: 'main_content_placeholder',
             url_geoserver_wms: 'http://fenix.fao.org/geoserver',
             year: '2014',
+            layer_hungermap: 'hungermap',
             layer_gaul0: 'gaul0_faostat_3857',
-            layer_boundaries: 'gaul0_line_3857',
+            layer_boundaries: 'gaul0_line_3857'
         }
 
         var build = function(config) {
@@ -26,7 +29,7 @@ define([
             var l = create_layer(fenixMap,CONFIG.lang, CONFIG.year)
             add_boundaries(fenixMap)
 
-            // add labels
+            //add labels
             add_labels(CONFIG.lang)
 
             $(".hm-timeline-year").click({l: l, m: fenixMap}, function(event) {
@@ -107,19 +110,19 @@ define([
             var fenixMap = new FM.Map(id, options, {  minZoom: 1,  zoom: 1, zoomControl: false, attributionControl: false });
             fenixMap.createMap(25, 0, 2);
             fenixMap.addTileLayer(FM.TileLayer.createBaseLayer('ESRI_WORLDSTREETMAP', 'EN'), true);
-	    fenixMap.map.options.maxZoom = 9;
-	    fenixMap.map.options.minZoom = 2;
+            fenixMap.map.options.maxZoom = 9;
+            fenixMap.map.options.minZoom = 2;
             return fenixMap;
         }
 
         var create_layer = function(fenixMap, lang, year) {
             var layer = {};
             layer.layertitle = 'Hunger Map'
-            layer.layers = 'fenix:hungermap';
+            layer.layers = CONFIG.layer_hungermap;
             layer.urlWMS = CONFIG.url_geoserver_wms;
             layer.styles = 'hungermap_' + year;
             layer.defaultgfi = true;
-            var l = new FM.layer(layer, fenixMap);
+            var l = new FM.layer(layer);
             l = setPopup(l, year, lang);
             fenixMap.addLayer(l)
             return l;
@@ -153,7 +156,7 @@ define([
             layer.layertitle = 'Hunger Map'
             layer.layers = CONFIG.layer_boundaries;
             layer.urlWMS = CONFIG.url_geoserver_wms;
-            var l = new FM.layer(layer, fenixMap);
+            var l = new FM.layer(layer);
             fenixMap.addLayer(l)
             return l;
         }
