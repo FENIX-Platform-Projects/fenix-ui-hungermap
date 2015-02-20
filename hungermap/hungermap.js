@@ -150,6 +150,10 @@ define([
                 attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
             });
 
+            var Esri_WorldTopoMap = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+                attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'
+            });
+
             var Acetate_labels = L.tileLayer('http://a{s}.acetate.geoiq.com/tiles/acetate-labels/{z}/{x}/{y}.png', {
                 attribution: '&copy;2012 Esri & Stamen, Data from OSM and Natural Earth',
                 subdomains: '0123',
@@ -168,8 +172,8 @@ define([
             });
 
 
-            fenixMap.map.addLayer(Esri_WorldImagery);
-            fenixMap.map.addLayer(Stamen_TonerLabels);
+            fenixMap.map.addLayer(Esri_OceanBasemap);
+            //fenixMap.map.addLayer(Stamen_TonerLabels);
             fenixMap.map.options.maxZoom = 9;
             fenixMap.map.options.minZoom = 2;
             return fenixMap;
@@ -185,6 +189,7 @@ define([
             layer.layers = CONFIG.layer_hungermap;
             layer.urlWMS = CONFIG.url_geoserver_wms;
             layer.styles = 'hungermap_' + year;
+            layer.opacity = 0.8;
             layer.defaultgfi = true;
             var l = new FM.layer(layer);
             l = setPopup(l, year, lang);
