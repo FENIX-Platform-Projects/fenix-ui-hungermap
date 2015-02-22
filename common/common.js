@@ -14,13 +14,15 @@ requirejs.config({
         'jquery.power.tip':   'node_modules/jquery-powertip/dist/jquery.powertip.min',
         //'jquery-ui':   'http://fenixapps.fao.org/repository/js/jquery-ui/1.10.3/jquery-ui-1.10.3.custom.min',
         'jquery.i18n.properties':   'http://fenixapps.fao.org/repository/js/jquery/1.0.9/jquery.i18n.properties-min',
-        //'jquery.hoverIntent':   'http://fenixapps.fao.org/repository/js/jquery.hoverIntent/1.0/jquery.hoverIntent',
+        'jquery.hoverIntent':   'http://fenixapps.fao.org/repository/js/jquery.hoverIntent/1.0/jquery.hoverIntent',
 
         'fenix-map': 'fenix-map-js/fenix-map-min',
         'fenix-map-config': 'fenix-map-js/fenix-map-config',
 
-        'fenix-ui-map': 'fenix-ui-map/fenix-ui-map.min',
+        'fenix-ui-map': 'fenix-ui-map/fenix-ui-map.src',
         'fenix-ui-map-config': 'fenix-ui-map/fenix-ui-map-config',
+
+        'Polyline.encoded': '//fenixapps.fao.org/repository/js/leaflet/plugins/leaflet.encoded/0.0.5/Polyline.encoded',
 
         'FMHungerMap': 'hungermap/hungermap'
     },
@@ -39,6 +41,12 @@ requirejs.config({
                 'jquery.i18n.properties',
                 //'jquery.hoverIntent', 
                  //'chosen'
+            ]
+        },
+        'Polyline.encoded': {
+            deps: [
+                'jquery',
+                'leaflet'
             ]
         },
         'fenix-ui-map': {

@@ -3,7 +3,9 @@ define([
     'text!hungermap/index.html',
     'bootstrap',
     //'fenix-map',
-    'fenix-ui-map'
+    'fenix-ui-map',
+    'jquery.hoverIntent',
+    'Polyline.encoded',
 ], function ($, template) {
 
     var global = this;
@@ -52,6 +54,39 @@ define([
             fenixMap.map.on('click', function (e) {
                 getFeatureInfo(e, fenixMap, l, CONFIG.year, CONFIG.lang);
             });
+
+            // On Move
+            var _m = fenixMap;
+            var GFIchk = {};
+            GFIchk["lat-" + fenixMap.id] = 0;
+            GFIchk["lng-" + fenixMap.id] = 0;
+            GFIchk["globalID-" + fenixMap.id] = 0;
+            fenixMap.map.on('mousemove', function (e) {
+                var id = Date.now();
+                GFIchk["globalID-" + _m.id] = id;
+                var t = setTimeout(function() {
+                    if ( id == GFIchk["globalID-" + _m.id]) {
+                        //console.log(e);
+                        if ((GFIchk["lat-" + _m.id] != e.latlng.lat) && (GFIchk["lng-" + _m.id] != e.latlng.lng)) {
+                            GFIchk["lat-" + _m.id] = e.latlng.lat;
+                            GFIchk["lng-" + _m.id] = e.latlng.lng;
+                            // call callback
+                           // _m.getFeatureInfo(e, 'hm-value');
+                            getFeatureInfo(e, fenixMap, l, CONFIG.year, CONFIG.lang);
+                            //_m.getFeatureInfo(e);
+                        }
+                    }
+                }, 50);
+            });
+
+            fenixMap.map.on('mouseout', function (e) {
+                GFIchk["lat-" + fenixMap.id] = 0;
+                GFIchk["lng-" + fenixMap.id] = 0;
+                GFIchk["globalID-" + fenixMap.id] = 0;
+                $('#hm-value').empty();
+            });
+
+
         }
 
         var add_labels = function(lang) {
@@ -176,11 +211,15 @@ define([
             //fenixMap.map.addLayer(Stamen_TonerLabels);
             fenixMap.map.options.maxZoom = 9;
             fenixMap.map.options.minZoom = 2;
+            //
+            //fenixMap.map.on('click', function (e) {
+            //    // customGFI
+            //    var fenixMap = e.target._fenixMap;
+            //    var l = fenixMap.controller.selectedLayer;
+            //
+            //});
             return fenixMap;
         }
-
-
-
 
 
         var create_layer = function(fenixMap, lang, year) {
@@ -202,13 +241,27 @@ define([
             l.layer.popuppercentage = "u_" + lang.toLocaleLowerCase() + "_" + year;
             var joinlabel  = "<div class='hm-popup-title'>{{" +  l.layer.popuptitle +"}}</div>";
             l.layer.customgfi = {
+                //content : {
+                //    en: "<div class='hm-popup-content'>" + joinlabel + "<div class='hm-popup-values'>{{" + l.layer.popuppercentage +"}} <i></i></div></div>"
+                //}
                 content : {
-                    en: "<div class='hm-popup-content'>" + joinlabel + "<div class='hm-popup-values'>{{" + l.layer.popuppercentage +"}} <i></i></div></div>"
+                    en: "{{adm0_code}}|{{"+ l.layer.popuptitle + "}}|{{" + l.layer.popuppercentage+ "}}"
                 }
-                ,showpopup: true
+                ,showpopup: false
+                ,callback: function(response, l) {
+                    response = response.split("|");
+                    var percentage = isNaN(response[0]) == "missing or insufficient data"? "": " %";
+                    var div = "<div class='hm-popup-conent'>" + response[1];
+                    div += "<div class='hm-popup-values'><i>" + response[2] + percentage +"</i></div>";
+                    div += "</div>";
+
+                    $('#hm-value').empty();
+                    $('#hm-value').append(div);
+                }
             }
             return l
         }
+
 
         var getFeatureInfo = function(e, fenixMap, l, year, lang) {
             l = setPopup(l, year, lang);

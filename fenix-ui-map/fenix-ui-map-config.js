@@ -6,7 +6,7 @@ define(function() {
 		//BASEURL: 'http://168.202.28.214:7070/fenix-map-js',
 
 		//BASEURL_DEPENDENCIES: 'config/DEPENDENCIES.json',
-		BASEURL_LANG: 'http://168.202.28.214:7070/fenix-map-js/I18N/',
+		BASEURL_LANG: 'fenix-ui-map/i18n/',
 
 		// MAPS Servicies config variables
 		//BASEURL_MAPS: 'http://fenixapps2.fao.org/maps',
