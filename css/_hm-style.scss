@@ -3,7 +3,8 @@
 body{
   font-family: 'Roboto';
   font-weight: 500;
-  color: #666666;
+  color: #23020c;
+
 }
 
 
@@ -29,28 +30,30 @@ input::-moz-focus-inner {
  border-width: 0;
 }
 
-.legend{
-  position: fixed;
-  bottom: 0;
-  padding:0 50px 0 10px;
-  width: 100%;
+#fx-navbar-collapsefx-bottom-menu{
+//  margin-top: 15px;
+  background-color: #f8f8f8;
 
   .hm-legend-list{
-//    background-color: rgba(249,247,243,0.8);
-//    border: 1px solid white;
-
     list-style: none;
     padding-left: 0;
-    @include fx-border-radius(4px);
+    margin-top: 14px;
+
+    li:nth-child(1){ .circle{ background-color: #fafafa; border: 1px solid #dddddd;} }
+    li:nth-child(2){ .circle{ background-color: #f3c8ca; } }
+    li:nth-child(3){ .circle{ background-color: #ed9d9e; } }
+    li:nth-child(4){ .circle{ background-color: #e55557; } }
+    li:nth-child(5){ .circle{ background-color: #b0242e; } }
+    li:nth-child(6){ .circle{ background-color: #d1d1d3; } }
+
 
     li{
-      float: left;
+
       margin: 0 10px;
       em{
         font-style: normal;
         font-size: 10px;
         text-transform: uppercase;
-        color: white;
       }
 
 
@@ -63,7 +66,7 @@ input::-moz-focus-inner {
 }
 
 .leaflet-bottom.leaflet-left{
-  bottom: 70px;
+  bottom: 50px;
 
   .leaflet-control-scale{
     margin-left: 10px;
@@ -109,24 +112,26 @@ input::-moz-focus-inner {
 .leaflet-control-zoom{
   @include  fx-no-border-radius;
   border-color: transparent;
+  margin-bottom: 60px !important;
 }
 
 
 
 .navbar-brand{
   background-image: url(images/logo-hm.svg);
-  height: 30px;
-  width: 251px;
+  height: 18px;
+  width: 160px;
 
   background-size: contain;
   background-repeat: no-repeat;
   position: relative;
-  top: 10px;
+  top: 16px;
 
   margin-right: 15px;
+  margin-left: 15px;
 }
 
-.navbar-nav{
+.navbar-default .navbar-nav{
 
   li{
     position: relative;
@@ -136,20 +141,26 @@ input::-moz-focus-inner {
       content: '';
       height: 3px;
       background-color: #35a6dc;
-      width: 0;
+      width: 100%;
       position: absolute;
       bottom: 0;
       @include animate;
+      @include fx-transfor-me(scaleX(0));
 
     }
 
+    a{
+      color: #23020c;
+      font-size: 12px;
+      text-transform: uppercase;
 
+    }
 
     &.active{
 
-          &:before{
-          width: 100%;
-            @include animate;
+        &:before{
+          @include animate;
+          @include fx-transfor-me(scaleX(0.8));
 
       }
 
@@ -164,3 +175,141 @@ input::-moz-focus-inner {
 
 
 }
+
+
+.navbar-default .legend-title{
+  background-image: none;
+  font-size: 10px;
+  text-transform: uppercase;
+  color: #23020c;
+  position: absolute;
+  font-weight: 300;
+  width: 300px;
+  height: 10px;
+  pointer-events: none;
+  top: -2px;
+  line-height: 12px;
+}
+/* Button Menu */
+
+
+.navbar-default .navbar-toggle{
+
+  @include fx-border-radius(0);
+  border-color: transparent;
+  background-color: #e9e9e9;
+
+  span{
+    font-size: 10px;
+    text-transform: uppercase;
+
+  }
+
+}
+
+
+
+
+
+
+
+
+.loader:before,
+.loader:after,
+.loader {
+  border-radius: 50%;
+  width: 2.5em;
+  height: 2.5em;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation: load7 1.8s infinite ease-in-out;
+  animation: load7 1.8s infinite ease-in-out;
+}
+.loader {
+  margin: 8em auto;
+  font-size: 10px;
+  position: relative;
+  text-indent: -9999em;
+  -webkit-animation-delay: 0.16s;
+  animation-delay: 0.16s;
+  position: relative;
+  top: 40%;
+}
+.loader:before {
+  left: -3.5em;
+}
+.loader:after {
+  left: 3.5em;
+  -webkit-animation-delay: 0.32s;
+  animation-delay: 0.32s;
+}
+.loader:before,
+.loader:after {
+  content: '';
+  position: absolute;
+  top: 0;
+}
+@-webkit-keyframes load7 {
+  0%,
+  80%,
+  100% {
+      box-shadow: 0 2.5em 0 -1.3em #35a6dc;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0 #35a6dc;
+  }
+}
+@keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em #35a6dc;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0 #35a6dc;
+  }
+}
+
+
+
+
+/*//////////////////////////////////////////// Map Media queries */
+
+@media (min-width: 768px) and (max-width: 1199px) {
+
+  .hm-legend-list{
+    width: 500px;
+    margin-top: 2px !important;
+
+    >li{
+
+      &:last-child{
+        margin-left: 61px !important;
+      }
+
+    }
+
+  }
+
+  #fx-navbar-collapsefx-bottom-menu{
+//    margin-top: 3px;
+  }
+
+
+
+}
+
+@media (max-width: 767px) {
+
+  .hm-legend-list{
+    float: left !important;
+
+    .circle{
+      margin-left: 18px;
+    }
+
+  }
+
+}
+
+
