@@ -96,6 +96,7 @@ input::-moz-focus-inner {
     #fx-navbar-collapsefx-bottom-menu .hm-legend-list li:nth-child(6) .circle {
       background-color: #d1d1d3; }
     #fx-navbar-collapsefx-bottom-menu .hm-legend-list li {
+      height: 20px;
       margin: 0 10px; }
       #fx-navbar-collapsefx-bottom-menu .hm-legend-list li em {
         font-style: normal;
@@ -179,9 +180,9 @@ input::-moz-focus-inner {
   margin-right: 15px;
   margin-left: 15px; }
 
-.navbar-default .navbar-nav li {
+.navbar-default .navbar-nav.time-range li {
   position: relative; }
-  .navbar-default .navbar-nav li:before {
+  .navbar-default .navbar-nav.time-range li:before {
     content: '';
     height: 3px;
     background-color: #35a6dc;
@@ -196,11 +197,11 @@ input::-moz-focus-inner {
     -ms-transform: scaleX(0);
     -webkit-transform: scaleX(0);
     transform: scaleX(0); }
-  .navbar-default .navbar-nav li a {
+  .navbar-default .navbar-nav.time-range li a {
     color: #23020c;
     font-size: 12px;
     text-transform: uppercase; }
-  .navbar-default .navbar-nav li.active:before {
+  .navbar-default .navbar-nav.time-range li.active:before {
     -webkit-transition: all 0.3s ease 0s;
     -moz-transition: all 0.3s ease 0s;
     -ms-transition: all 0.3s ease 0s;
@@ -209,7 +210,7 @@ input::-moz-focus-inner {
     -ms-transform: scaleX(0.8);
     -webkit-transform: scaleX(0.8);
     transform: scaleX(0.8); }
-  .navbar-default .navbar-nav li.active a {
+  .navbar-default .navbar-nav.time-range li.active a {
     background-color: transparent !important; }
 
 .navbar-default .legend-title {

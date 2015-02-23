@@ -48,7 +48,7 @@ input::-moz-focus-inner {
 
 
     li{
-
+      height: 20px;
       margin: 0 10px;
       em{
         font-style: normal;
@@ -131,10 +131,11 @@ input::-moz-focus-inner {
   margin-left: 15px;
 }
 
-.navbar-default .navbar-nav{
+.navbar-default .navbar-nav.time-range{
 
   li{
     position: relative;
+
 
 
     &:before{
