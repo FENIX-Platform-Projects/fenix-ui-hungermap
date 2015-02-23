@@ -30,21 +30,11 @@ define([
             var l = create_layer(fenixMap,CONFIG.lang, CONFIG.year)
             add_boundaries(fenixMap)
 
-            //add labels
-            //add_labels(CONFIG.lang)
-
             $(".fx-ul li").on('click', {l: l, m: fenixMap}, function(event) {
-
                 var $li =  $(event.currentTarget)
-
                 $(".fx-ul li").removeClass('active')
                 $li.addClass('active')
-                console.log($li.find('a').attr('data-year'))
                 CONFIG.year = $li.find('a').attr('data-year')
-//                console.log(CONFIG.year)
-//
-//                $('.hm-timeline-selected').removeClass('hm-timeline-selected');
-//                $(this).addClass('hm-timeline-selected');
                 event.data.m.map.closePopup()
                 switch_layer(event.data.l, CONFIG.year)
             });
@@ -52,50 +42,6 @@ define([
             fenixMap.map.on('click', function (e) {
                 getFeatureInfo(e, fenixMap, l, CONFIG.year, CONFIG.lang);
             });
-        }
-
-        var add_labels = function(lang) {
-            switch(lang) {
-                case 'FR':
-                    $('#hm-proportion').html('Proportion de la');
-                    $('#hm-title').html('Population Totale sous-alimentée');
-                    $('#hm-timeline-title').html('Chronologie');
-                    $('#hm-legend').html('Légende');
-                    $('#hm-verylow').html('Très basse ');
-                    $('#hm-moderatelylow').html('Modérément basse');
-                    $('#hm-moderatelyhigh').html('Modérément élevée');
-                    $('#hm-high').html('Élevée')
-                    $('#hm-veryhigh').html('Très élevée')
-                    $('#hm-missing').html('Données manquantes ou insuffisantes')
-                    $('#hm-andover').html('et plus')
-                    break;
-                case 'ES':
-                    $('#hm-proportion').html('Proporción de la');
-                    $('#hm-title').html('Población Total Sub-alimentada');
-                    $('#hm-timeline-title').html('Cronología');
-                    $('#hm-legend').html('Leyenda');
-                    $('#hm-verylow').html('Muy bajo');
-                    $('#hm-moderatelylow').html('Moderadamente bajo');
-                    $('#hm-moderatelyhigh').html('Moderadamente alto');
-                    $('#hm-high').html('Alto')
-                    $('#hm-veryhigh').html('Muy alto ')
-                    $('#hm-missing').html('Información ausente o insuficiente')
-                    $('#hm-andover').html('o más')
-                    break;
-                default:
-                    $('#hm-proportion').html('Proportion Of');
-                    $('#hm-title').html('Total Population Undernourished');
-                    $('#hm-timeline-title').html('Timeline');
-                    $('#hm-legend').html('Legend');
-                    $('#hm-verylow').html('Very low');
-                    $('#hm-moderatelylow').html('Moderately low');
-                    $('#hm-moderatelyhigh').html('Moderately high');
-                    $('#hm-high').html('High')
-                    $('#hm-veryhigh').html('Very high')
-                    $('#hm-missing').html('Missing or insufficient data')
-                    $('#hm-andover').html('and over')
-            }
-            $("#hm-logo").addClass('hm-logo-' + lang);
         }
 
         var create_map =function (id) {
@@ -116,72 +62,37 @@ define([
                 usedefaultbaselayers : false
             }
 
-            var fenixMap = new FM.Map(id, options, {  minZoom: 1,  zoom: 1, zoomControl: false, attributionControl: false });
-            fenixMap.createMap(35, 0, 2);
+            var fenixMap = new FM.Map(id, options,
+                {
+                   minZoom: 1,
+                   maxZoom: 11,
+                    zoomControl: false,
+                    attributionControl: false,
+                    continuousWorld: true,
+                    maxBounds:[[-90, -180], [90, 180]]
+                }
+            );
 
-            //http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/5/18/19
-
-            //fenixMap.addTileLayer(FM.TileLayer.createBaseLayer('ESRI_WORLDSTREETMAP', 'EN'), true);
-            //fenixMap.addTileLayer(FM.TileLayer.createBaseLayer('ESRI_WORLDSTREETMAP', 'EN'), true);
-            var CartoDB_Positron = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
-                subdomains: 'abcd',
-                minZoom: 0,
-                maxZoom: 18
-            });
+            fenixMap.createMap();
+            //fenixMap.createMap(20, 0, 1);
 
             var Esri_OceanBasemap = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer/tile/{z}/{y}/{x}', {
                 attribution: 'Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri',
                 maxZoom: 13
             });
 
-            var Esri_WorldGrayCanvas = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
-                attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
-                maxZoom: 16
-            });
-
-            var Esri_WorldStreetMap = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
-                attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
-            });
-
-
-
-            var Esri_WorldImagery = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-                attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
-            });
-
-            var Esri_WorldTopoMap = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
-                attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'
-            });
-
-            var Acetate_labels = L.tileLayer('http://a{s}.acetate.geoiq.com/tiles/acetate-labels/{z}/{x}/{y}.png', {
-                attribution: '&copy;2012 Esri & Stamen, Data from OSM and Natural Earth',
-                subdomains: '0123',
-                minZoom: 2,
-                maxZoom: 18,
-                zIndex: 1000
-        });
-
-            var Stamen_TonerLabels = L.tileLayer('http://{s}.tile.stamen.com/toner-labels/{z}/{x}/{y}.png', {
-                attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-                subdomains: 'abcd',
-                minZoom: 0,
-                maxZoom: 20,
-                opacity: 0.6,
-                zIndex: 1000
-            });
-
-
             fenixMap.map.addLayer(Esri_OceanBasemap);
             //fenixMap.map.addLayer(Stamen_TonerLabels);
-            fenixMap.map.options.maxZoom = 9;
-            fenixMap.map.options.minZoom = 2;
+           // fenixMap.map.options.maxZoom = 9;
+          //  fenixMap.map.options.minZoom = 2;
+          //  var southWest = L.latLng(180, -180),
+          //      northEast = L.latLng(90, -90),
+          //      bounds = L.latLngBounds(southWest, northEast);
+          //  fenixMap.map.options.maxBounds = bounds;
+
+            fenixMap.map.fitWorld();
             return fenixMap;
         }
-
-
-
-
 
         var create_layer = function(fenixMap, lang, year) {
             var layer = {};
