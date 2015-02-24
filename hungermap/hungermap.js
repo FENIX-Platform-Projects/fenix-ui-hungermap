@@ -69,7 +69,7 @@ define([
                     zoomControl: false,
                     attributionControl: false,
                     continuousWorld: true,
-                    maxBounds:[[-90, -180], [90, 180]]
+                    maxBounds:[[-90, -180*10], [90, 180*10]]
                 }
             );
 
@@ -90,7 +90,9 @@ define([
           //      bounds = L.latLngBounds(southWest, northEast);
           //  fenixMap.map.options.maxBounds = bounds;
 
-            fenixMap.map.fitWorld();
+            //fenixMap.map.fitWorld();
+            fenixMap.map.fitBounds([[-80, -175], [80, 175]]);
+            fenixMap.map.invalidateSize();
             return fenixMap;
         }
 
