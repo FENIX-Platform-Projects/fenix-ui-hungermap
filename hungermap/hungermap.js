@@ -82,17 +82,35 @@ define([
             });
 
             fenixMap.map.addLayer(Esri_OceanBasemap);
-            //fenixMap.map.addLayer(Stamen_TonerLabels);
-           // fenixMap.map.options.maxZoom = 9;
-          //  fenixMap.map.options.minZoom = 2;
-          //  var southWest = L.latLng(180, -180),
-          //      northEast = L.latLng(90, -90),
-          //      bounds = L.latLngBounds(southWest, northEast);
-          //  fenixMap.map.options.maxBounds = bounds;
 
-            //fenixMap.map.fitWorld();
-            fenixMap.map.fitBounds([[-80, -175], [80, 175]]);
-            fenixMap.map.invalidateSize();
+
+
+            var worldBB = L.latLngBounds([[-90, -180], [90, 180]]),
+            	GLOBE_WIDTH = 190, // a constant in Google's map projection
+
+            	west = worldBB.getSouthWest().lng,
+            	east = worldBB.getNorthEast().lng,
+            	angleW = east - west,
+
+				north = worldBB.getNorthEast().lat,
+				south = worldBB.getSouthWest().lat,
+            	angleH = north - south,
+
+            	mapW = fenixMap.map.getSize().x,
+				mapH = fenixMap.map.getSize().y;
+
+			if (angleW < 0)
+				angleW += 360;
+			if (angleH < 0)
+				angleH += 360;			
+			
+			var zoomW = Math.round(Math.log(mapW * 360 / angleW / GLOBE_WIDTH) / Math.LN2),
+				zoomH = Math.round(Math.log(mapH * 360 / angleH / GLOBE_WIDTH) / Math.LN2),
+				zoom = Math.max(zoomW, zoomH) - 1;
+
+            fenixMap.map.setZoom(zoom, { animate: false });
+
+
             return fenixMap;
         }
 
