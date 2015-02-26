@@ -104,9 +104,12 @@ input::-moz-focus-inner {
         text-transform: uppercase; }
 
 .leaflet-bottom.leaflet-left {
-  bottom: 50px; }
+  bottom: 80px; }
   .leaflet-bottom.leaflet-left .leaflet-control-scale {
     margin-left: 10px; }
+
+.leaflet-bottom.leaflet-right {
+  bottom: 45px; }
 
 .circle {
   display: inline-block;

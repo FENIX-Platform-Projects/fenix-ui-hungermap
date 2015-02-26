@@ -66,13 +66,15 @@ input::-moz-focus-inner {
 }
 
 .leaflet-bottom.leaflet-left{
-  bottom: 50px;
+  bottom: 80px;
 
   .leaflet-control-scale{
     margin-left: 10px;
   }
+}
 
-
+.leaflet-bottom.leaflet-right {
+  bottom: 45px;
 }
 
 .circle{
