@@ -304,3 +304,5 @@ input::-moz-focus-inner {
     float: left !important; }
     .hm-legend-list .circle {
       margin-left: 18px; } }
+.leaflet-control-scale {
+  left: 0; }
